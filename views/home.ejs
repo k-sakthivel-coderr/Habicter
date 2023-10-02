@@ -1,0 +1,230 @@
+<html>
+    <head>
+        <title><%= heading %></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            body{
+                background-color: lightgray;
+                display:flex;
+                justify-content: center;
+            }
+
+            /*Customize the main container box*/
+            
+            .container{
+                height:auto;
+                width:700px;
+                background-color: lightgrey;
+                display: flex;
+                justify-content: center;
+                align-content: center;
+            }
+
+            /*Customize inner div*/
+
+            .inner-div{
+                position: relative;
+                margin:auto;
+                height:auto;
+                width: 90%;
+                background: #ca89f5;
+                border-radius: 30px;
+                box-shadow: 0px 0px 10px 1px black;
+            }
+
+            /* Customize the input section */
+
+            .input-sec{
+                position:relative;
+                margin-left:2%;
+                margin-right:2%;
+                margin-top:3%;
+            }
+
+            /* Customize the input box */
+
+            input{
+                position:relative;
+                height:3rem;
+                padding-left:9%;
+                border:2px solid black;
+                border-radius:20px ;
+                font-family: Monospace;
+                font-size: 1rem;
+                transition:all .5s;
+            }
+
+            /* Mouse hover over effect on input  */
+
+            input:hover{
+                background-color: azure;
+                box-shadow: white 0px 0px 5px 5px;
+            }
+
+            /* Customize input section button */
+
+            .input-sec button{
+                position:relative;
+                height:3rem;
+                margin-top:1%;
+                border-radius: 20px;
+                font-family: Monospace;
+                font-weight:bold;
+                transition:all .5s;
+            }
+
+            /* Mouse hover over effect on input section button */
+
+            .input-sec button:hover{
+                background-color: azure;
+                box-shadow: white 0px 0px 5px 5px;
+            }
+
+            /* Customize habits list */
+
+            .Habits-List{
+                position: relative;
+                height: 100px;
+                width: 90%;
+                margin-top: 2%;
+                margin-bottom:2%;
+                border-radius: 1rem;
+                border: 2px solid black;
+                background-color:aqua;
+                transition: all .7s;
+            }
+
+            /* Hover overing effect on habits list */
+
+            .Habits-List:hover{
+                transform: scale(1.07);
+                box-shadow: whitesmoke 0px 0px 5px 5px;
+            }
+
+            /* Customize un-ordered list */
+
+            ul{
+                margin-top: 2%;
+            }
+
+            /* Customize complete button div */
+
+            .days-addition-button{
+                margin: auto;
+            }
+
+            /* Customize complete button */
+
+            .days-addition-button button{
+                position: relative;
+                border-radius: 10px;
+                border: 2px dashed black;
+                font-family: cursive;
+                transition: all .5s;
+            }
+
+            /* Hover over effect on complete button */
+
+            .days-addition-button button:hover{
+                transform: scale(1.09);
+            }
+
+            /* Animation for delete button */
+
+            @keyframes bell-act{
+                0%{
+                    transform: rotateZ(20deg);
+                }
+                50%{
+                    transform: scale(1.3);
+                }
+                100%{
+                    transform: rotateZ(-20deg);
+                }
+            }
+
+            /* delete button animation initialzer */
+
+            .delete-btn:hover{
+                animation: bell-act ease-in-out .5s alternate infinite;
+
+            }
+
+            /* Hover over scale up animation for edit icon */
+
+            .edit-btn i:hover{
+                transform: scale(1.3);
+                transition: all .5s;
+
+            }
+
+            /* Scroll bar customization */
+
+            ::-webkit-scrollbar {
+            width:7px;
+            border-radius: 50%;
+            }
+            ::-webkit-scrollbar-track {
+            background: white;
+            display: none;
+            }
+            ::-webkit-scrollbar-thumb {
+            background-color: lightblue;
+            border-radius: 20px;
+            border: 1px solid white;
+            }
+
+        </style>   
+    </head>
+    <body>
+        <div class="container">
+            <div class="inner-div">
+                <div class="input-sec row justify-content-around">
+                    <!-- Input taken from user based on details habit and day will be added in habits list -->
+                    <form action="/create/input" method="POST" class="row">
+                        <input class="col-5" type="text" name="HabitName" id="addingTask" placeholder="Enter habit" required>
+                        <img class="col-2"src="https://cdn-icons-png.flaticon.com/512/3588/3588658.png" ></img>
+                        <input class="col-5" type="number" name="Days" id="addingTask" placeholder="Enter Days" required>
+                        <button class="col-12" type="submit">Add habit</button>
+                    </form>
+                </div>
+                <% if(HabitsObj.length >= 1){ %>
+                    <!-- Running loop for get all the habits present in the database -->
+                    <!-- Each habitsObjects are separated -->
+                    <% for(let i of HabitsObj){ %>
+                        <div class="Habits-List container-fluid">
+                            <ul class="list-unstyled">
+                                <li style="display:flex; justify-content: space-between;">
+                                    <!-- Habit name -->
+                                    <div style="font-family: cursive; font-weight: bold; font-size: 1rem;">
+                                        <i style="margin-right: 3px;" class="fa-solid fa-bolt"></i> <%= i.HabitName %>
+                                    </div>
+                                    <!-- Habit completion days -->
+                                    <div class="edit-btn position-absolute" style="font-family: cursive; font-weight: bold; font-size: 1rem; left: 45%;">
+                                        <p class="days" style="display: inline;"><%=i.DaysCount %></p>/<%= i.Days %><a style="color: black; margin-left: 3px;"href="/create/edit/<%= i.id %>"><i class="fa-solid fa-pen"></i></a>
+                                    </div>
+                                    <!-- Delete button to delete particular habit -->
+                                    <div class="delete-btn">
+                                        <a style="color: black;"href="/create/destroy/<%= i.id %>"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                </li>     
+                            </ul>
+                            <!-- Button to increae completion days -->
+                            <div class="days-addition-button row container-fluid">
+                                <!-- Using anchor tag we send that particular object id  -->
+                                <a href="/create/daysCount/<%= i.id %>"><button class="col-12">Complete</button></a>
+                            </div>
+                        </div>
+                    <%}%>
+                <%}%>
+                </div>
+        </div>
+        <script src="https://kit.fontawesome.com/91b25f8033.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

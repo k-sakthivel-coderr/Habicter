@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Edit Habit Completion Days</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <style>
+        #addingTask{
+          margin-left: 2%;
+          height: 3.5rem;
+          border:2px solid black;
+          border-radius: 1rem;
+          padding-left: 2%;
+        }
+      </style>
+
+  </head>
+  <body>
+        <!-- Modal from bootstrap -->
+
+        <!-- Button trigger modal -->
+        <div  class="text-center" style="margin-top:10% ;">
+          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Click here! 
+          </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Update completion days of <%= HabitObj.HabitName %></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row">
+                <span><i class="fa-solid fa-pen-to-square"></i></span>
+                <form action="/create/edit/<%= HabitObj.id %>" method="POST" class="col">
+                    <input type="text" name="HabitName" id="addingTask" placeholder="Enter new completion days" required>
+                    <input class="bg-primary btn" type="submit" role="button" value="Save changes">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+  </body>
+</html>
