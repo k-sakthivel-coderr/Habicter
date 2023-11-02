@@ -21,7 +21,7 @@ require('dotenv').config();
 async function connectToMongoDB()
 {
     try {
-        await mongoose.connect(process.env.mongoDBUrl);
+        await mongoose.connect("mongodb+srv://klsakthi333:<@Sakthi333>@cluster0.bc6vzgj.mongodb.net/");
         console.log('database connected');
     
     } catch (error) {
